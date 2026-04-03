@@ -1,0 +1,63 @@
+---
+title: "My R Markdown Primer"
+author: "Ian Alloway"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+## Introduction
+
+R Markdown is a file format that combines plain-text Markdown with embedded R code, allowing analysts to weave narrative, computation, and output into a single reproducible document. When you "knit" an `.Rmd` file, R executes every code chunk, captures the results, and merges them with your prose into a polished HTML, PDF, or Word report. This means the analysis and the write-up live in one place--if the data changes, you simply re-knit and the tables, figures, and numbers update automatically.
+
+## A Brief Look at the `mtcars` Dataset
+
+The built-in `mtcars` dataset records fuel consumption and ten other aspects of automobile design for 32 cars from the 1974 *Motor Trend* magazine. It is one of R's most commonly used teaching datasets because it is small enough to inspect by hand yet rich enough to demonstrate a variety of statistical techniques. Below we load the dataset alongside `ggplot2` for visualization and print summary statistics.
+
+### Code Chunk 1: Loading Libraries and Summary Statistics
+
+```{r summary-stats}
+library(ggplot2)
+
+data(mtcars)
+
+summary(mtcars[, c("mpg", "hp", "wt")])
+```
+
+The summary above shows the minimum, median, mean, and maximum values for miles per gallon (`mpg`), horsepower (`hp`), and weight (`wt`). Already we can see that fuel economy ranges from about 10 to nearly 34 mpg, which is a wide spread that begs explanation.
+
+### Code Chunk 2: Visualizing the Relationship Between Weight and MPG
+
+```{r scatter-plot, fig.width=7, fig.height=5}
+ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed") +
+  labs(
+    title = "Car Weight vs. Fuel Economy",
+    x = "Weight (1000 lbs)",
+    y = "Miles per Gallon",
+    color = "Cylinders"
+  ) +
+  theme_minimal()
+```
+
+The scatter plot confirms an intuitive relationship: heavier cars tend to get fewer miles per gallon. Coloring the points by cylinder count reveals that most of the heaviest, least-efficient vehicles have eight cylinders, while the lightest and most efficient cars tend to have four.
+
+## A Little Math with LaTeX
+
+R Markdown supports LaTeX notation for mathematical expressions. For instance, the inline expression $\alpha + \beta = \gamma$ renders nicely within a sentence. We can also write a displayed equation. The formula for a simple linear regression model is:
+
+$$
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \quad \varepsilon_i \sim \mathcal{N}(0, \sigma^2)
+$$
+
+This states that each observed value $Y_i$ is a linear function of the predictor $X_i$ plus normally distributed noise. Being able to typeset equations right next to the code that estimates them is one of R Markdown's most powerful features.
+
+## Concluding Reflection
+
+Working in R Markdown feels like a significant upgrade over writing plain reports. In a traditional workflow you might run your analysis in one application, copy the output, paste it into a word processor, and then format everything by hand. If the data changes or a reviewer spots an error, you have to repeat the entire process. R Markdown eliminates that friction: the code, the output, and the narrative are all in one file, and re-knitting regenerates everything in seconds.
+
+The learning curve is gentle--Markdown syntax for headers, bold text, and lists is far simpler than HTML--and the payoff is immediate. Adding LaTeX math was surprisingly easy once I understood the dollar-sign delimiters. The biggest adjustment was remembering to name my code chunks and set chunk options (`echo`, `message`, `warning`) so the rendered document looked clean. Overall, R Markdown strikes an excellent balance between simplicity and power, and I plan to use it for all future coursework and analysis reports.

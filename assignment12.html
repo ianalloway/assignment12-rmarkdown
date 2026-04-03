@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My R Markdown Primer</title>
+  <style>
+    body { font-family: "Helvetica Neue", Arial, sans-serif; max-width: 48em; margin: 2em auto; padding: 0 1em; line-height: 1.6; color: #333; }
+    h1 { border-bottom: 1px solid #ccc; padding-bottom: 0.3em; }
+    h2 { color: #2c3e50; margin-top: 1.5em; }
+    h3 { color: #34495e; }
+    pre { background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; padding: 0.8em 1em; overflow-x: auto; font-size: 0.9em; }
+    code { font-family: "Source Code Pro", Consolas, monospace; }
+    .output { background: #fff; border-left: 3px solid #2c7bb6; }
+    .meta { color: #777; font-size: 0.95em; margin-bottom: 2em; }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+  </head>
+  <body>
+    <h1>My R Markdown Primer</h1>
+  <div class="meta"><strong>Author:</strong> Ian Alloway<br/><strong>Date:</strong> 2026-04-02</div>div>
+  
+  <h2>Introduction</h2>
+  <p>R Markdown is a file format that combines plain-text Markdown with embedded R code, allowing analysts to weave narrative, computation, and output into a single reproducible document. When you "knit" an <code>.Rmd</code> file, R executes every code chunk, captures the results, and merges them with your prose into a polished HTML, PDF, or Word report. This means the analysis and the write-up live in one place--if the data changes, you simply re-knit and the tables, figures, and numbers update automatically.</p>
+  
+  <h2>A Brief Look at the <code>mtcars</code> Dataset</h2>
+  <p>The built-in <code>mtcars</code>code> dataset records fuel consumption and ten other aspects of automobile design for 32 cars from the 1974 <em>Motor Trend</em> magazine.</p>
+  
+  <h3>Code Chunk 1: Loading Libraries and Summary Statistics</h3>
+  <pre><code>library(ggplot2)
+  data(mtcars)
+  summary(mtcars[, c("mpg", "hp", "wt")])</code></pre>
+  
+  <pre class="output"><code>##       mpg              hp              wt
+  ##  Min.   :10.40   Min.   : 52.0   Min.   :1.513
+  ##  1st Qu.:15.43   1st Qu.: 96.5   1st Qu.:2.581
+  ##  Median :19.20   Median :123.0   Median :3.325
+  ##  Mean   :20.09   Mean   :146.7   Mean   :3.217
+  ##  3rd Qu.:22.80   3rd Qu.:180.0   3rd Qu.:3.610
+  ##  Max.   :33.90   Max.   :335.0   Max.   :5.424</code></pre>
+  
+  <p>The summary above shows the minimum, median, mean, and maximum values for miles per gallon, horsepower, and weight.</p>
+  
+  <h3>Code Chunk 2: Visualizing the Relationship Between Weight and MPG</h3>
+  <pre><code>ggplot(mtcars, aes(x = wt, y = mpg, color = factor(cyl))) +
+    geom_point(size = 3) +
+    geom_smooth(method = "lm", se = FALSE, linetype = "dashed") +
+    labs(title = "Car Weight vs. Fuel Economy",
+         x = "Weight (1000 lbs)", y = "Miles per Gallon",
+         color = "Cylinders") +
+    theme_minimal()</code></pre>
+  
+  <p><em>[Scatter plot: Car Weight vs. Fuel Economy colored by cylinder count, showing heavier cars get fewer MPG]</em></p>
+  
+  <p>The scatter plot confirms an intuitive relationship: heavier cars tend to get fewer miles per gallon. Coloring the points by cylinder count reveals that most of the heaviest, least-efficient vehicles have eight cylinders, while the lightest and most efficient cars tend to have four.</p>
+  
+  <h2>A Little Math with LaTeX</h2>
+  <p>R Markdown supports LaTeX notation for mathematical expressions. For instance, the inline expression \(\alpha + \beta = \gamma\) renders nicely within a sentence. The formula for a simple linear regression model is:</p>
+  <p>$$Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \quad \varepsilon_i \sim \mathcal{N}(0, \sigma^2)$$</p>
+  <p>This states that each observed value \(Y_i\) is a linear function of the predictor \(X_i\) plus normally distributed noise.</p>
+  
+  <h2>Concluding Reflection</h2>
+  <p>Working in R Markdown feels like a significant upgrade over writing plain reports. In a traditional workflow you might run your analysis in one application, copy the output, paste it into a word processor, and then format everything by hand. If the data changes or a reviewer spots an error, you have to repeat the entire process. R Markdown eliminates that friction: the code, the output, and the narrative are all in one file, and re-knitting regenerates everything in seconds.</p>
+  <p>The learning curve is gentle--Markdown syntax for headers, bold text, and lists is far simpler than HTML--and the payoff is immediate. Adding LaTeX math was surprisingly easy once I understood the dollar-sign delimiters. The biggest adjustment was remembering to name my code chunks and set chunk options (<code>echo</code>, <code>message</code>, <code>warning</code>) so the rendered document looked clean. Overall, R Markdown strikes an excellent balance between simplicity and power, and I plan to use it for all future coursework and analysis reports.</p>
+  </body>
+</html>html></code></code></p></p></em></code></p></pre></em></p></code></code></p></strong></strong></h1>
+  </body>
+  </style></title>
+  </head>
